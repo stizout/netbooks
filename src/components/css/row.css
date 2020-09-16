@@ -1,0 +1,10 @@
+.book {
+  height: 12rem;
+  width: 8rem;
+  background-color: blue;
+  margin: 0 1rem;
+}
+
+.book:first-child {
+  margin-left: 0;
+}
