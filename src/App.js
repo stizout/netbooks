@@ -1,59 +1,44 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Row from './components/row';
 import './App.css';
+
+const page1 = '/books/Hide-And-Seek-1.png';
+const page2 = '/books/Hide-and-Seek-2.png';
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      books: [
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'alex', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-        { id: 1, title: 'Title', img: 'img' },
-      ],
-      translateX: 0,
+      books: [{ id: 1, title: 'Hide And Seek', img: 'img', pages: [page1, page2] }],
     };
   }
-
-  handleTranslate = (amount) => {
-    const { translateX } = this.state;
-    if (amount === 0) {
-      console.log('reset', amount);
-      return this.setState({ translateX: amount });
-    }
-    const translationAmount = translateX - amount;
-    console.log('state', translateX);
-    this.setState({ translateX: translationAmount });
-  };
   render() {
-    const { translateX, books } = this.state;
+    const { books } = this.state;
     return (
-      <div>
-        <Navbar />
-        <main className='container'>
-          <div className='row'>
-            <Row handleTranslate={this.handleTranslate} translateX={translateX} books={books} />
-          </div>
-          <div className='row'>
-            <Row />
-          </div>
-          <div className='row'>
-            <Row />
-          </div>
-        </main>
-      </div>
+      <Router>
+        <div>
+          <Navbar />
+          <main className='container'>
+            <Switch>
+              <Route path='/book'>
+                <img src={books[0].pages[0]} alt='book' />
+              </Route>
+              <Route path='/'>
+                <div className='row'>
+                  <Row books={books} />
+                </div>
+                <div className='row'>
+                  <Row books={books} />
+                </div>
+                <div className='row'>
+                  <Row books={books} />
+                </div>
+              </Route>
+            </Switch>
+          </main>
+        </div>
+      </Router>
     );
   }
 }
