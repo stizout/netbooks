@@ -44,10 +44,14 @@ export default class row extends Component {
 
     return (
       <div>
-        <button onClick={() => this.determineTranslate()} disabled={books.length / 5 < 1}>
-          XY
-        </button>
         <div className='flex book-container'>
+          <button
+            onClick={() => this.determineTranslate()}
+            disabled={books.length / 5 < 1}
+            className='scroll-button'
+          >
+            XY
+          </button>
           <div
             className={`flex`}
             style={{ transform: `translateX(${translateX}px)`, transitionDuration: '1s' }}

@@ -13,9 +13,15 @@
   overflow: hidden;
   position: relative;
   background-color: aqua;
-  margin: 0 5rem;
+  margin: 0 3rem;
 }
 
 .translateDiv {
   transform: translateX(-500px);
+}
+
+.scroll-button {
+  width: 48px;
+  margin: auto 0;
+  height: 30px;
 }
