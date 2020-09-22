@@ -27,8 +27,8 @@ export default class row extends Component {
   determineTranslate = () => {
     const { count } = this.state;
     const { books } = this.props;
-    console.log(count, books.length / 5);
-    if (count > books.length / 5) {
+    console.log(count, books.length / 6);
+    if (count > books.length / 6) {
       this.handleTranslate(0);
       return this.setState({ count: 0 });
     }
@@ -46,32 +46,37 @@ export default class row extends Component {
     const { translateX } = this.state;
 
     if (books == null) {
-      return 'Loading';
+      return 'Loading Alex';
     }
-    console.log(books[0]);
+    console.log(books);
 
     return (
       <div>
-        <div className='flex book-container'>
-          <button
-            onClick={() => this.determineTranslate()}
-            disabled={books.length / 5 < 1}
-            className='scroll-button'
-          >
-            XY
-          </button>
-          <button onClick={() => this.getBook()}>book</button>
-          <div
-            className={`flex`}
-            style={{ transform: `translateX(${translateX}px)`, transitionDuration: '1s' }}
-          >
-            {books.map((book) => (
-              <Link to='/book'>
-                <div className='book'>
-                  <img src={book.volumeInfo.imageLinks.small} alt='book' />
-                </div>
-              </Link>
-            ))}
+        <div className='flex row-container'>
+          <div className='flex book-container'>
+            <button
+              onClick={() => this.determineTranslate()}
+              disabled={books.length / 5 < 1}
+              className='scroll-button'
+            >
+              Scroll
+            </button>
+            <div
+              className={`flex`}
+              style={{ transform: `translateX(${translateX}px)`, transitionDuration: '1s' }}
+            >
+              {books.map((book) => (
+                <Link to='/book'>
+                  <div className='book'>
+                    <img
+                      src={book.volumeInfo.imageLinks.smallThumbnail}
+                      alt='book'
+                      className='book-img'
+                    />
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
