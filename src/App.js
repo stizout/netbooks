@@ -13,69 +13,67 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      books: [{ id: 1, title: 'Hide And Seek', img: 'img', pages: [page1, page2] }],
-      hankBooks: null,
-      peppaBooks: null,
-      isLoading: true,
+      categories: [
+        { searchTerm: 'heres+hank', category: 'Adventures of Hank' },
+        { searchTerm: 'peppa', category: 'Peppa Pig' },
+        { searchTerm: 'winne+the+pooh', category: 'Winnie-the-Pooh' },
+      ],
     };
   }
 
-  componentDidMount() {
-    axios
-      .all([
-        axios.get(`https://www.googleapis.com/books/v1/volumes?q=heres+hank`),
-        axios.get(`https://www.googleapis.com/books/v1/volumes?q=peppa`),
-      ])
-      .then(
-        axios.spread((firstResponse, secondResponse) => {
-          console.log(firstResponse.data, secondResponse.data);
-          this.setState({
-            hankBooks: firstResponse.data,
-            peppaBooks: secondResponse.data,
-            isLoading: false,
-          });
-        })
-      )
-      .catch((error) => console.log(error));
+  // componentDidMount() {
+  //   axios
+  //     .all([
+  //       axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`),
+  //       axios.get(`https://www.googleapis.com/books/v1/volumes?q=peppa`),
+  //     ])
+  //     .then(
+  //       axios.spread((firstResponse, secondResponse) => {
+  //         console.log(firstResponse.data, secondResponse.data);
+  //         this.setState({
+  //           hankBooks: firstResponse.data,
+  //           peppaBooks: secondResponse.data,
+  //           isLoading: false,
+  //         });
+  //       })
+  //     )
+  //     .catch((error) => console.log(error));
 
-    // const [hank, peppa] = Promise.all([
-    //   axios.get('https://www.googleapis.com/books/v1/volumes?q=heres+hank'),
-    //   axios.get('https://www.googleapis.com/books/v1/volumes?q=peppa'),
-    // ]).then(() => {
-    //   this.setState({
-    //     hankBooks: hank,
-    //     peppaBooks: peppa,
-    //     isLoading: false,
-    //   });
-    // });
-    // axios.get('https://www.googleapis.com/books/v1/volumes?q=heres+hank').then((res) => {
-    //   console.log(res.data);
-    //   this.setState({ hankBooks: res.data, isLoading: false });
-    // });
-  }
+  //   // const [hank, peppa] = Promise.all([
+  //   //   axios.get('https://www.googleapis.com/books/v1/volumes?q=heres+hank'),
+  //   //   axios.get('https://www.googleapis.com/books/v1/volumes?q=peppa'),
+  //   // ]).then(() => {
+  //   //   this.setState({
+  //   //     hankBooks: hank,
+  //   //     peppaBooks: peppa,
+  //   //     isLoading: false,
+  //   //   });
+  //   // });
+  //   // axios.get('https://www.googleapis.com/books/v1/volumes?q=heres+hank').then((res) => {
+  //   //   console.log(res.data);
+  //   //   this.setState({ hankBooks: res.data, isLoading: false });
+  //   // });
+  // }
 
   render() {
-    const { isLoading } = this.state;
-    if (isLoading) {
-      return 'Loading';
-    }
-    const { books, hankBooks, peppaBooks } = this.state;
+    const { books, categories } = this.state;
     console.log(this.state);
     return (
       <Router>
         <Navbar />
         <main className='container'>
           <Switch>
-            <Route path='/book'>
-              <img src={books[0].pages[0]} alt='book' />
-            </Route>
             <Route path='/'>
-              <div className='row'>
-                <Row books={hankBooks.items} />
-              </div>
-              <div className='row'>
-                <Row books={peppaBooks.items} />
-              </div>
+              {categories.map((category) => {
+                return (
+                  <div className='row'>
+                    <Row searchTerm={category.searchTerm} category={category.category} />
+                  </div>
+                );
+              })}
+              {/* <div className='row'>
+                <Row books={'peppa'} category={'Peppa Pig'} searchTerm={'peppa'} />
+              </div> */}
             </Route>
           </Switch>
         </main>

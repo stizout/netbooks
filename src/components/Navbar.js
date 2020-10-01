@@ -6,7 +6,7 @@ export default function Navbar() {
     <nav role='navigation' aria-label='main navigation'>
       <div style={{ padding: '0 1rem' }} className='nav-container'>
         <div className='nav-left'>
-          <h2>Brand Name</h2>
+          <h2>NetBooks</h2>
           <ul className='flex'>
             <li>Item 1</li>
             <li>Item 2</li>
