@@ -5,9 +5,7 @@ import Row from './components/row';
 import axios from 'axios';
 import './App.css';
 import bookArray from './assets/books.json';
-
-const page1 = '/books/Hide-And-Seek-1.png';
-const page2 = '/books/Hide-and-Seek-2.png';
+import Login from './Login';
 
 class App extends Component {
   constructor() {
@@ -21,40 +19,6 @@ class App extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   axios
-  //     .all([
-  //       axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`),
-  //       axios.get(`https://www.googleapis.com/books/v1/volumes?q=peppa`),
-  //     ])
-  //     .then(
-  //       axios.spread((firstResponse, secondResponse) => {
-  //         console.log(firstResponse.data, secondResponse.data);
-  //         this.setState({
-  //           hankBooks: firstResponse.data,
-  //           peppaBooks: secondResponse.data,
-  //           isLoading: false,
-  //         });
-  //       })
-  //     )
-  //     .catch((error) => console.log(error));
-
-  //   // const [hank, peppa] = Promise.all([
-  //   //   axios.get('https://www.googleapis.com/books/v1/volumes?q=heres+hank'),
-  //   //   axios.get('https://www.googleapis.com/books/v1/volumes?q=peppa'),
-  //   // ]).then(() => {
-  //   //   this.setState({
-  //   //     hankBooks: hank,
-  //   //     peppaBooks: peppa,
-  //   //     isLoading: false,
-  //   //   });
-  //   // });
-  //   // axios.get('https://www.googleapis.com/books/v1/volumes?q=heres+hank').then((res) => {
-  //   //   console.log(res.data);
-  //   //   this.setState({ hankBooks: res.data, isLoading: false });
-  //   // });
-  // }
-
   render() {
     const { books, categories } = this.state;
     console.log(this.state);
@@ -63,6 +27,7 @@ class App extends Component {
         <Navbar />
         <main className='container'>
           <Switch>
+            <Route path='/login' render={() => <Login loggedIn={false} />} />
             <Route path='/'>
               {categories.map((category) => {
                 return (
@@ -71,9 +36,6 @@ class App extends Component {
                   </div>
                 );
               })}
-              {/* <div className='row'>
-                <Row books={'peppa'} category={'Peppa Pig'} searchTerm={'peppa'} />
-              </div> */}
             </Route>
           </Switch>
         </main>

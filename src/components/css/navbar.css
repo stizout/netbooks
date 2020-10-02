@@ -7,6 +7,14 @@
   height: 4rem;
 }
 
+.nav-container-login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0rem;
+  height: 4rem;
+}
+
 .flex {
   display: flex;
 }
